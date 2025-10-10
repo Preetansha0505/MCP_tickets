@@ -1,0 +1,2157 @@
+databricks medallion structure
+most models are trapped by their own isolation of data, trapped behind information silos and legacy system????
+agent be able to perform text chat without streaming
+agent be able to perform text chat and use tools without streaming
+be able to stream text conversations and use tools smoothly
+be able to stream text and query LLM with images and documents
+be able to execute multiple tools in parallel
+be able to make plan in order to answer complex question and execute multiple tool sequentially
+multi agents. High level functioning agent host working with lower level agents in a distributed system.
+query validation on the server side?
+
+Used Langchain and langgraph to stream responses in a research bot but it parse the stream as chunks (seems unpleasant bcoz apparently it was possible to do it through https calls)
+Other reasons to use Langchain, the state variables and data structures 
+needed to track research progress
+
+issues with the above model -
+
+buffer trick is temporary trick, need better solution for this
+improved tool call tracking and excution
+adding scratchpad for agent's thinking
+
+
+
+from research_agent import ChatModel
+from .chat_model import ChatModel
+from .config, .executor, .weather, .search, .registry
+from utils.tools_interface import generate_tool_configs, executor
+
+
+
+
+https://www.digitalocean.com/community/tutorials/mcp-server-python
+https://medium.com/@UsamahJ/creating-ai-agents-with-mcp-and-ollama-local-a-hands-on-tutorial-8a8d8f698315
+https://buckhouse.medium.com/ai-agents-using-mcp-your-guy-in-the-chair-f32ac850c60e
+https://huggingface.co/blog/tsadoq/agent2agent-and-mcp-tutorial
+
+
+ai agents that can help with MLOps with model observability
+Build your own mcp
+build mcp and ai agents using databricks
+MCP server that can interact with the ML flow and AI agent
+model flow will be the entry point for the agent
+interaction between model observability and AI agents while deploying
+Tie the 2 together (MCP and AI agents)
+
+
+
+
+Learning Resources
+
+. Agentic Al Handbook (freeCodeCamp)
+
+o Blog/Tutorial covers autonomy, planning, memory, and reasoning, plus a hands-on Python agent tutorial
+using LangChain.
+. NVIDIA Blog: "What Is Agentic Al?"
+o Explains the foundational concepts with clear diagrams and real-world examples of agentic planning and
+autonomy.
+. NirDiamant / GenAl_Agents (GitHub)
+o Tutorial-based implementations of generative and agentic Al agents.
+. alirezadir / Agentic-Al-Systems (GitHub)
+Covers building agentic systems using OpenAl Agents SDK, LangChain, LangGraph, CrewAl, and includes
+architectural guidance.
+. krishnaik06 /Roadmap-To-Learn-Agentic-Al (GitHub)
+Provides a structured roadmap from basic Al concepts to agentic frameworks (LangChain, LangGraph)
+with curated resources.
+. Building Effective Agents (Anthropic Blog)
+. Building Effective Agents with LangGraph (LangGraph)
+. Documentation & Examples referenced in the above video - https://langchain-ai.github.io/langgraph/tutorials/workflows/building-blocks-the-augmented-llm
+. Sole Agentic Workshop: Building and Deploying a Tool-Calling Agent on Databricks
+. Databricks - Author Al Agents in Code
+https://docs.databricks.com/aws/en/notebooks/source/generative-ai/langgraph-tool-calling-agent.html
+You can create this Agent notebook from sole-react or sole-blazer-1 from AI/ML -> Playground -
+> Get Code -> Create Agent Notebook , although we currently run into Spark Connect error if you run
+the notebook.
+Coursera: Building Al Agents (Includes intro to CrewAl)
+Very high-level overview, not dense enough to warrant time committment but includes a couple hands-on
+
+ai.github.io/langgraph/tutorials/workflows/building-blocks-the-augmented-llm
+. Sole Agentic Workshop: Building and Deploying a Tool-Calling Agent on Databricks
+. Databricks - Author Al Agents in Code
+https://docs.databricks.com/aws/en/notebooks/source/generative-ai/langgraph-tool-calling-agent.html
+o You can create this Agent notebook from sole-react or sole-blazer-1 from AI/ML -> Playground -
+> Get Code -> Create Agent Notebook, although we currently run into Spark Connect error if you run the notebook.
+. Coursera: Building Al Agents (Includes intro to CrewAI)
+o Very high-level overview, not dense enough to warrant time committment but includes a couple hands-on learning exercises using CrewAl.
+
+Project Ideas to Consider
+
+1. Agentic Web Crawler a. agent to connect to data sources - confluence, box, etc. b. agent to navigate the
+folder structure c. agent to extract & digest the content d. agent to classify content privacy e. other relevant
+agents
+2. Agentic NER (Named Entity Recognition) a. agent analyzes data and recognized entities, and patterns b. agent
+extract & stores relevant terms from text for indexing c. agent to handle synonyms d. agent to understand
+business-specific products & lingo
+3. Agentic KPI Tracker a. multiple agents to track relevant KPIs and metrics in various data sources
+4. Agentic Compliance Checker a. multiple agents to validate documents to meet defined compliances
+5. Agentic Product Copy a. agents for building various sections of product copy
+
+Tools Suggestions:
+1. Lanchain/LangGraph
+2. ChromaDB/Mosaic VectorDB
+3. HuggingFace
+4. LLMs
+
+
+
+
+LLM - 
+
+
+
+Introduction to LLM
+What are Gen AI Agents
+Roadmap Gen AI
+mcp tutorial
+open ai codex
+gen ai models for beginners
+app llm for no code development
+Multimodal prompting for beginners
+Deep Learning
+access 1000 ai tools
+What are Gans
+What is Machine Learning
+Machine Learning Tutorial
+n8n Tutorial
+What are Gans
+Transformers in AI
+Reinforcement Learning
+LangGraph vs LangChain vs LangFlow vs LangSmith
+Deepseek r1
+Install Deepseek
+Hugging Face and its tutorial
+Search GPT
+Langchain
+AI Video Generation course
+LSTM
+Chatgpt analyse
+Openai sora
+LLM Benchmarking
+Google Quantum AI
+Majorana
+Gen ai tools for job interview
+Claude 4 vs gemini 2.5 pro
+
+
+So when the Dai org was created, since beginning they were doing hackathons. To scale up. and do things. MCP architecture, an AI agent. 
+
+Between the two, because you can have entity servers and once you're building AI agent, you're going to instantiate those clients and you're going to kind of build your agent based on that right. So that was an interesting. Because you can have entity servers and once you're building AI agent, you're going to instantiate those clients and you're going to kind of build your agent based on the UK, right? So that was an intention for the team and that's what the teams have been doing so far. In the next two weeks, we expect the quads to be formed.
+ 
+what I'm hoping for this group to do is to really ramp up on and AI agent this group should learn is how to how to build your own entities over and then how to build an AI agent that can that can use that server for that we we have an AI agent that can help with. 
+
+you want to think about the model observability, You want to think about, OK, build a server that has an interface that you know can can interact with ML flow and it can register your model. What will be the entry point for your agent? How is that going to interact with ML application? So you have an ML application that is deploying a model production. What is that interaction pattern going to look like with the agent that you're building?
+ 
+Group has created agents using, you know out-of-the-box open source tools to tools available. But ideally you want to tie the two together. So if you're creating an MCP server. How can you make use of building an agent? How can you make use of that entity server that is created? OK, so there's there's also that other thing that you can get to do if you take something to take an end to end.
+ 
+
+
+MCP server, databricks, poetry
+
+
+what is a scorer?
+
+To integrate AI agents with tools of evaluation there are three solutions:
+
+ 1. extend existing components with evaluating tools
+        less structural change but limited because of it as well, cannot evolve independently
+        Might also bloat the other logics
+
+ 2. Create a dedicated evaluation service
+        can evolve successfully
+        maintainance cost
+
+ 3. Agent side evaluation integration
+
+        no new services required
+        easy maintainance
+        mixes up the responsibilities of agents and evaluation
+
+Langchain traces???
+
+I wonder which would be more humiliating, mohit witnessing sakshi sleeping or me singing????
+
+
+
+4 Sept - 
+
+https://openai.github.io/openai-agents-python/guardrails/ - guardrails
+
+
+ ┌─────────────────────────────────────────┐
+ │              USER INPUT                  │
+ └─────────────────────────────────────────┘
+                   │
+                   ▼
+ ┌─────────────────────────────────────────┐
+ │        INPUT GUARDRAILS (MCP Layer)     │
+ │  - Block malicious prompts              │
+ │  - Mask sensitive info (PII, secrets)   │
+ │  - Enforce domain-specific rules        │
+ └─────────────────────────────────────────┘
+                   │
+                   ▼
+ ┌─────────────────────────────────────────┐
+ │   AGENT LAYER (Finance, HR, Legal, etc.)│
+ │   - Reasoning                           │
+ │   - Planning                            │
+ │   - Deciding which tools to use         │
+ └─────────────────────────────────────────┘
+                   │
+                   ▼
+ ┌─────────────────────────────────────────┐
+ │  MCP (Model Context Protocol)           │
+ │  - Standard interface for tools & data  │
+ │  - Orchestrates agent → tool requests   │
+ │  - Centralized logging/audit            │
+ └─────────────────────────────────────────┘
+                   │
+                   ▼
+ ┌─────────────────────────────────────────┐
+ │  TOOL GUARDRAILS (MCP Middleware)       │
+ │  - Check authorization before API calls │
+ │  - Prevent unsafe operations (e.g.      │
+ │    “delete_user_data”)                  │
+ │  - Rate limiting, quota enforcement     │
+ └─────────────────────────────────────────┘
+                   │
+                   ▼
+ ┌─────────────────────────────────────────┐
+ │          EXTERNAL TOOLS/APIs            │
+ │   - Databases, Knowledge bases, APIs    │
+ └─────────────────────────────────────────┘
+                   │
+                   ▼
+ ┌─────────────────────────────────────────┐
+ │        OUTPUT GUARDRAILS (MCP Layer)    │
+ │  - Scan response for toxicity/halluc.   │
+ │  - Add disclaimers if needed            │
+ │  - Redact restricted info               │
+ └─────────────────────────────────────────┘
+                   │
+                   ▼
+ ┌─────────────────────────────────────────┐
+ │              USER OUTPUT                │
+ └─────────────────────────────────────────┘
+
+
+
+
+
+Leetcode - super palindrome
+
+       - palin <= 10^18
+       - we have to check till root = sqrt(palin) because checking 10^18 would end in TLE
+       - half seed - eg 123 then even palin - 123321, odd palin - 12321 (what am I supposed to do with this?)
+       - We generate palindromes of different lengths (since root ≤ 10⁹, roots have ≤ 9 digits).
+       Trick: build palindromes from a "half seed"
+       - check if root^2 is palindrome
+       - left <= root^2 <= right
+
+
+       - 🔢 O(10^9) Time complexity
+
+       That means 1 billion operations.
+       Even at ~10⁸ ops/second (which is optimistic in Python, realistic only in C++), this would take ~10 seconds or more.
+       In Python, 10⁹ loops is basically impossible within LeetCode limits (TLE guaranteed).
+
+       - 🔢 O(2 × 10^5) Time complexity
+
+       That means 200,000 operations.
+       This is tiny for modern computers.
+       Runs comfortably in Python (<1 sec).
+
+
+
+agent creating the folder structure instead of cruft template 
+
+agent -> git repo link and what kind of agent they would like to create along with the architecture and the frameworks to use
+
+then agent will orchestrate these requests and if the agent has questions it will counter questions to the user then after clarifying the queries and then the control will automatically shifts to that agent who will then be responsible for using other agents to design, develop, review and deploy the software. Basically a whole agent that manages the whole software life cycle part...
+       |
+       |
+       |
+      \/
+
+User Prompt
+ 
+Defines agent type
+ 
+Defines kernel/framework (e.g., Semantic Kernel)
+ 
+Provides extra requirements
+ 
+Orchestrator Agent (High-level)
+ 
+Clarifies missing details with user
+ 
+Delegates tasks to Designer Agent + Code Writer Agent
+ 
+Designer Agent
+ 
+Converts user prompt into an architecture blueprint
+ 
+Code Writer Agent (Sub-agent using Claude Code SDK - Python)
+ 
+Stage 1: Architecture Designing → Define modules, flow, dependencies
+ 
+Stage 2: Folder Creation → Generate project skeleton
+ 
+Stage 3: Code Writing → Write code files (Claude Code SDK handles generation)
+ 
+ 
+Return to Orchestrator
+ 
+Collects code output
+ 
+Creates feature branch
+ 
+Commits & raises PR to main
+
+
+Got it 👍 Here’s how you can narrate it naturally in your meeting:
+In my last organization, I was working on a POC where we had to design an entire agent creation flow. The idea was that a user could simply give a prompt — for example, specifying what kind of agent they needed, what kernel or framework it should use, like Semantic Kernel, and any other requirements.
+On top of that, we built an Orchestrator Agent which acted like the project manager. Its job was to validate the input, ask clarifying questions if some details were missing, and then coordinate the rest of the process.
+We had a Designer Agent that worked like an architect — it took the user’s intent and converted it into a high-level blueprint of the solution.
+Then we introduced a Code Writer Agent, which we built using Claude Code SDK in Python. This agent worked in multiple stages:
+First, it designed the architecture,
+Then it created the folder structure,
+After that, it generated the actual code files,
+And finally, it ran readiness checks to make sure everything was consistent.
+Once the Code Writer finished, control went back to the Orchestrator, which then created a feature branch, committed the code, and raised a PR into the main branch.
+So essentially, the flow was very streamlined — user input → orchestrator → designer → code writer (multi-stage) → orchestrator → PR.
+
+
+
+
+
+In my last organization, I got a chance to work on AGentic ai, it was new to me then. 
+
+I was involved on a POC where we had to design an entire agent creation flow. The idea was that a user could simply give a prompt — for example, specifying what kind of agent they needed, what kernel or framework it should use, like Semantic Kernel, and any other requirements.
+
+On top of that, we built an Orchestrator Agent which acted like the project manager. Its job was to validate the input, ask clarifying questions if some details were missing, and then coordinate the rest of the process. 
+
+then in the flow we had another agent called Designer Agent that worked like an architect — it takes the user’s intent and convert it into a high-level blueprint of the solution.
+ 
+Once the orchestration is done and the all the clarification questions are done from the orchestrator agent and it is satisfied, then the control is passed over to the Code Writer Agent, which was built using Claude Code SDK in Python. similar tool is there like gemini cli.
+ 
+Code Writer agent has its own flow where we have multiple stages.
+ 
+First, it designs the architecture based on the users ask and dynamically choses the correct doc from the knowledge base for eg 
+
+if the user wants to create the. Agent using langraph. Then it would Dynamically pull the guidelines from the knowledge base and put in context of the architecture agent and based on that it will create the architecture. 
+
+then the control will go the folder creation agent based on the guidlines of the architecture agent then in the next iteration it will creates the folder structure,
+ 
+After that, 
+
+the control goes to file creation agent in that it create the file once all the files are created then the control goes back to orchestrator which then creates a feature branch, commits the code, and raised a PR into the main branch.
+ 
+At my previous organization, I had the opportunity to work on Agentic AI, which was a new domain for me at the time. I contributed to a proof-of-concept (POC) where we designed a complete agent creation flow.
+The idea was to allow a user to provide a simple prompt describing the kind of agent they needed, the underlying kernel or framework (e.g., Semantic Kernel), and any additional requirements.
+To enable this, we built an Orchestrator Agent that acted like a project manager. Its responsibilities included validating inputs, asking clarifying questions if requirements were incomplete, and coordinating the downstream flow.
+We also developed a Designer Agent that functioned like an architect — converting the user’s intent into a high-level blueprint of the solution. Once the Orchestrator gathered all necessary details, control moved to the Code Writer Agent (built using the Claude Code SDK in Python, similar to the Gemini CLI).
+The Code Writer Agent itself followed a staged workflow:
+It first designed the architecture and dynamically pulled the correct documentation from the knowledge base (e.g., guidelines for Langraph if the user requested that).
+Based on this, it generated the system architecture and passed control to the Folder Creation Agent, which created the folder structure.
+Next, the File Creation Agent populated the files according to the architecture.
+Finally, control returned to the Orchestrator Agent, which handled the end-to-end DevOps flow: creating a feature branch, committing the generated code, and raising a PR into the main branch.
+
+
+Explored resource & image handling in FAST MCP, including how servers expose files and dynamic content.
+
+Reviewed output validation flow using Pydantic models and TypedDict for structured, type-safe responses.
+
+Noted that unstructured values (dict, list, primitives) are still supported, mainly for legacy/backward compatibility.
+
+Looked into FastMCP v2 updates like improved resource decorators, image streaming, and better schema generation.
+ 
+
+
+Agreed upon MCP Gateway requirements:
+a. User (embedded) authentication throughout agentic use chain
+b. API Authorization
+c. Observabillity - monitoring and logging, tool responses, etc.
+d. Input and output filtering/guardrails for reputational protection
+e. Session aware stateful routing - ?
+f. Nike Approved only LLMs
+Next Steps:
+a. Discuss outstanding requirements/questions
+b. List CIS Use Cases
+c. Meeting cadence for design/testing team
+MCP Gateway Secure by Design Worksheet -
+https://app.smartsheet.com/sheets/PqjxFc3WJg6wMWGCFq9J75qfVVPx6XXmFx7jjr1
+Google Agent 2 Agent - https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/
+Anthropic MCP - https://docs.anthropic.com/en/docs/mcp
+https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices
+AuthO - https://auth0.com/blog/mcp-vs-a2a/
+MCP security best practices - https://modelcontextprotocol.io/specification/draft/basic/security_best_practices
+
+
+Why models hallucinate, openAI - https://cdn.openai.com/pdf/d04913be-3f6f-4d2b-b283-ff432ef4aaa5/why-language-models-hallucinate.pdf
+
+Deep learning MCP course - https://learn.deeplearning.ai/courses/mcp-build-rich-context-ai-apps-with-anthropic/lesson/xtt6w/mcp-architecture'
+
+MCP registry - https://github.com/modelcontextprotocol/registry
+
+MCP github - https://github.com/modelcontextprotocol/python-sdk
+
+
+This is process + implementation work, not pure dev.
+Requires research, agreement, and documentation (branching strategy, RFC/GitHub discussions).
+Also includes pipeline implementation in GitHub/Jenkins (moderate complexity, but reusing existing infra).
+No major new feature, but some cross-team coordination needed.
+ 
+Mostly test automation work.
+Requires updating Jenkins pipeline + removing skipped test + ensuring Dockerfile builds properly.
+No large architecture or process changes, but still some pipeline debugging may be needed.
+Limited scope, well-contained task.
+
+
+Automated tests for MCP server template creation with Docker
+
+
+
+Description
+As an engineer, I want the tests that run on Jenkins to include a test that the Dockerfile built by the CI template actually works so that
+I can avoid regressions.
+
+
+. Enable test (find a different way to test the functionality):
+https://github.com/nike-edaaml/mcp-server-template/blob/fe882bde59f3f67e7a4040db68510f95d0a2306b/tests/test_bake_project.pyL57
+
+https://github.com/nike-edaaml/mcp-server-40db68510f95d0a2306b/JenkinsfileL28
+
+. Jenkins pipeline updated to include test that an instance of the template's Dockerfile is built
+. Test updated to invoke MCP server endpoint inside Jenkins agent
+. Code pr'd and merged.
+
+
+
+DSA Trick - if (0x104111 >> (ord(c) - 97)) & 1: 
+
+       Imagine 0x104111 as a magical scroll with 26 switches, each switch corresponds to a letter.
+       Shifting moves the letter’s switch to the "front" so we can inspect it.
+       & 1 checks if that switch is ON.
+
+
+
+       if freq % 2 == 0:
+                 If even frequency - use all characters / Если частота чётная - используем все символы
+                length += freq
+            else:
+                 If odd frequency - use even part (freq-1) / Если нечётная - используем чётную часть
+                length += freq - 1
+                has_odd = True   mark presence of odd frequency / отмечаем наличие нечётной частоты
+        
+         Add center symbol if needed / Добавляем центральный символ при необходимости
+        if has_odd:
+            length += 1
+
+
+
+Hi Matt,
+I'm working on the card "Automated Tests for Building the MCP Server Template with Docker" and planning the implementation approach.
+My plan is to add stages to our Jenkins pipeline to test the build and successful deployment of the MCP server:
+1. Add a stage that runs the Docker container
+2. Make a call to a '/health' endpoint in app.py to verify the server is running correctly
+3. Implement the health endpoint (since we don't currently have one)
+Does this approach align with your expectations? Let me know if you have any feedback or suggestions.
+
+
+hey vania - this is a great start! You'll certainly need to add a Jenkins stage for this one.
+Before you do anything with building, running, or invoking endpoints, you'll need to actually create an instance of the template inside Jenkins, like you did for the MLOPs server.
+Once you've created the project instance, I'd:
+. build the docker image
+. run the docker image
+. invoke the sample tool to test that the server is running propely and you get a 200 status code as opposed to the healthcheck endpoint
+
+Implementing the healthcheck is a great idea for the future - feel free to create a ticket for the backlog for that.
+
+
+Filesystem - Secure file operations with configurable access controls
+GitHub - Repository management, file operations, and GitHub API integration
+GitLab - GitLab API, enabling project management
+Git - Tools to read, search, and manipulate Git repositories
+Google Drive - File access and search capabilities for Google Drive
+PostgreSQL - Read-only database access with schema inspection
+Sqlite - Database interaction and business intelligence capabilities
+Slack - Channel management and messaging capabilities
+Sentry - Retrieving and analyzing issues from Sentry.io
+Memory - Knowledge graph-based persistent memory system
+Puppeteer - Browser automation and web scraping
+Brave Search - Web and local search using Brave's Search API
+Google Maps - Location services, directions, and place details
+Fetch - Web content fetching and conversion for efficient LLM usage
+
+sprint planning video watching - Monday
+have to connect Manish on Monday
+
+psycho cybernetics
+
+how to create a docker container inside jenkins pipeline and run it properly
+
+JSON schema input validation - 
+
+    {
+      "$schema": "http://json-schema.org/draft-07/schema",
+      "title": "Product",
+      "description": "A product in the catalog",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}-\\d{4}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 3
+        },
+        "price": {
+          "type": "number",
+          "minimum": 0
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": ["id", "name", "price"]
+    }
+
+
+
+Perfect — let’s build you a step-by-step roadmap to learn MCP (Model Context Protocol) from zero knowledge all the way to advanced use cases.
+I’ll treat you as a complete beginner (no AIML background) and make sure you get the why, what, how, and when for every step.
+
+---
+
+ 🗺️ Roadmap: MCP Beginner → Advanced
+
+ Stage 1: Foundations (Absolute Beginner)
+
+> Goal: Understand what MCP is, why it exists, and get comfortable with the environment.
+
+1. What is MCP?
+
+   * Why: Without context, you’ll just memorize code without knowing its purpose.
+   * Learn: MCP is a protocol for AI systems (like me) to connect to external tools, data, and knowledge in a structured way.
+   * Example: Instead of hardcoding a weather API into an AI app, MCP lets you plug it in dynamically.
+   * 🏰 Fantasy Analogy: Think of MCP as the *royal messenger system* — every wizard (AI model) uses it to send requests to libraries, guilds, and adventurers.
+
+2. Core Concepts of MCP
+
+   * Servers & Clients: MCP runs as a server that exposes capabilities. Your AI app (or model) is the client that talks to it.
+   * Resources: Think of these as *spell scrolls* — data you can fetch (documents, database records, APIs).
+   * Tools: These are *spells you can cast* — actions you can perform (e.g., send email, run code).
+   * Messages & Schemas: The *language* of the kingdom — well-defined JSON so everyone understands each other.
+
+3. Install MCP Environment
+
+   * Install [MCP Inspector](https://github.com/modelcontextprotocol/inspector) (a GUI tool to test MCP servers).
+   * Install Python (3.10+).
+   * Learn basic `pip`, `venv`, and JSON (essential, very beginner-friendly).
+
+📌 Practice Prompt:
+Explain in your own words why MCP is better than hardcoding API calls into your app.
+
+---
+
+ Stage 2: Beginner MCP Projects
+
+> Goal: Build confidence by running and tweaking basic MCP servers.
+
+1. Run an Example MCP Server
+
+   * Use a pre-built example (like the [OpenAI MCP examples](https://github.com/modelcontextprotocol)).
+   * Inspect available resources and tools in MCP Inspector.
+
+2. Modify the Example
+
+   * Add a new resource (e.g., return a static list of books or characters).
+   * Add a new tool (e.g., generate a random quest name).
+
+3. Learn the MCP JSON-RPC Structure
+
+   * Understand request → response pattern.
+   * Understand error handling.
+
+📌 Practice Prompt:
+Create a simple MCP server that returns random fantasy quotes when the client asks for “wisdom.”
+
+---
+
+ Stage 3: Intermediate MCP
+
+> Goal: Learn to connect MCP with *real* data sources and external APIs.
+
+1. Build Your Own MCP Server from Scratch
+
+   * Use Python (FastAPI or Flask) or Node.js (Express).
+   * Implement at least:
+
+     * `listResources`
+     * `readResource`
+     * `listTools`
+     * `callTool`
+
+2. Integrate Real APIs
+
+   * Examples:
+
+     * Weather API → MCP tool `get_weather(city)`.
+     * Books API → MCP resource `fantasy_books`.
+
+3. Connect to Local Data
+
+   * Serve a local CSV/SQLite file as a resource.
+   * Tool: “Search spells by name” → query the file and return results.
+
+📌 Practice Prompt:
+Build an MCP server that acts as a wizard’s library:
+
+* Resource: list of all spells.
+* Tool: cast a spell (prints “🔥 Fireball casted!”).
+
+---
+
+ Stage 4: Advanced MCP
+
+> Goal: Learn advanced capabilities, multi-step workflows, and deployment.
+
+1. Streaming & Observability
+
+   * Learn how to send progress updates (so the AI can say “working on it…”).
+   * Add logging, metrics, and error monitoring.
+
+2. Authentication & Security
+
+   * Add API keys or OAuth to protect sensitive tools (e.g., sending real emails).
+   * Learn about schema validation to prevent injection attacks.
+
+3. Chained MCP Servers
+
+   * Build multiple servers and connect them together.
+   * Example: “Quest Generator” server + “Map Drawer” server → AI can fetch a quest and draw its map.
+
+4. Production Deployment
+
+   * Dockerize your MCP server.
+   * Deploy on a small VPS or Render/Fly.io for free hosting.
+   * Add rate-limiting & caching for performance.
+
+📌 Practice Prompt:
+Create a multi-server fantasy system:
+
+* Server 1: Quest generator
+* Server 2: NPC generator
+* Server 3: Treasure economy tracker
+  Have them talk to each other to produce a complete quest storyline with rewards.
+
+---
+
+ Stage 5: Expert MCP Use Cases
+
+> Goal: Innovate & build truly useful systems.
+
+* Build MCP + AI agents (e.g., LangChain or OpenAI Assistants API) that dynamically pick which tool/resource to call.
+* Contribute to MCP open-source projects (add a new server type or feature).
+* Explore real-world applications:
+
+  * Personal AI dashboard
+  * AI DevOps assistant
+  * Research assistant connected to multiple data sources
+
+📌 Master Challenge:
+Build your own Fantasy Game AI GM using MCP:
+
+* Player asks for a quest → your MCP server generates characters, lore, items.
+* Player rolls a dice → MCP server updates quest state.
+* Player finishes quest → MCP server rewards XP and updates world map.
+
+---
+
+ 🧠 Quick Summary
+
+* Beginner: Understand MCP, run examples, modify small parts.
+* Intermediate: Build your own server, connect APIs, serve local data.
+* Advanced: Add security, streaming, multiple servers, deploy to cloud.
+* Expert: Use MCP with AI agents to build production-grade assistants and contribute to open-source.
+
+---
+
+Want me to create a structured 6-week study plan based on this roadmap (with weekly goals and tiny projects)?
+This will help you stay consistent and not get overwhelmed.
+
+
+https://aistudio.google.com/apps
+
+Nice diagram — it’s an Argand (complex) plane packed with the usual geometry + Euler magic. I’ll walk through it step-by-step, pointing to each idea and the tiny formulas that go with it.
+
+ Step-by-step explanation
+
+1. The plane / axes
+
+   * Horizontal axis = Re(Z) (real part).
+   * Vertical axis = Im(Z) (imaginary part).
+     A complex number $Z$ is plotted as the point $(x,y)$ where $x=\Re(Z)$ and $y=\Im(Z)$.
+
+2. Point and position vector
+
+   * The complex number $Z$ is written $Z = x + i y$.
+   * Geometrically it’s the vector from the origin to the point $(x,y)$. That vector is often drawn as an arrow and called the *position vector*.
+
+3. Modulus (radius) $r$
+
+   * The length of that arrow is the modulus $r = |Z| = \sqrt{x^2 + y^2}$.
+   * Concentric circles in the diagram show constant-modulus loci (points at the same distance from the origin).
+
+4. Argument (angle) $\theta$
+
+   * The angle between the positive real axis and the position vector is the argument $\theta = \arg(Z)$.
+   * Coordinates ↔ polar relationships:
+
+     $$
+     x = r\cos\theta,\qquad y = r\sin\theta.
+     $$
+   * Inverse: $\theta=\operatorname{atan2}(y,x)$ (choose the correct quadrant).
+
+5. Polar / exponential form of a complex number
+
+   * Combine modulus and argument:
+
+     $$
+     Z = r(\cos\theta + i\sin\theta) = r e^{i\theta}.
+     $$
+   * The diagram labels both polar $|Z|\angle\theta$ and exponential $re^{i\theta}$ forms.
+
+6. Euler’s formula and the unit circle
+
+   * Euler: $e^{i\theta} = \cos\theta + i\sin\theta$.
+   * Points on the unit circle have $r=1$ and are exactly $e^{i\theta}$. The unit circle is used to visualize sines, cosines and rotations.
+
+7. Euler’s identity (special case)
+
+   * Set $\theta=\pi$: $e^{i\pi} = \cos\pi + i\sin\pi = -1$.
+   * Hence $e^{i\pi} + 1 = 0$ — the famous compact identity shown on the diagram.
+
+8. Complex conjugate $Z^*$
+
+   * The conjugate of $Z=x+iy$ is $Z^* = x - i y$.
+   * Geometrically it’s the reflection of $Z$ across the real axis (flip the sign of the imaginary coordinate).
+   * In polar form: $Z^* = r e^{-i\theta}$.
+
+9. Modulus squared and product with conjugate
+
+   * Multiply $Z$ by its conjugate:
+
+     $$
+     Z\,Z^* = (x+iy)(x-iy) = x^2 + y^2 = r^2.
+     $$
+   * So $Z Z^* = |Z|^2$. The diagram points this out (useful for computing inverses, norms, etc.).
+
+10. Inverse / inversion
+
+    * The reciprocal $1/Z$ can be written using the conjugate:
+
+      $$
+      \frac{1}{Z} = \frac{Z^*}{|Z|^2} = \frac{1}{r} e^{-i\theta}.
+      $$
+    * Geometrically: inversion maps radius $r$ to $1/r$ and flips the angle sign (reflect over real axis then scale).
+
+11. Multiplication = scale + rotate
+
+    * If $Z_1 = r_1 e^{i\theta_1}$ and $Z_2 = r_2 e^{i\theta_2}$ then
+
+      $$
+      Z_1 Z_2 = r_1 r_2 e^{i(\theta_1+\theta_2)}.
+      $$
+    * Multiplication scales radii and adds angles (rotation). This is why complex numbers are excellent for rotations in the plane.
+
+12. Powers of $i$ and rotation by $90^\circ$
+
+    * $i = e^{i\pi/2}$. So multiplying by $i$ rotates any vector 90° counterclockwise.
+    * Powers cycle: $i^1=i,\; i^2=-1,\; i^3=-i,\; i^4=1$.
+
+13. Roots of unity and the n-gon
+
+    * Solutions to $z^n=1$ are the nth roots of unity: $z_k = e^{i2\pi k/n}$ for $k=0,\dots,n-1$.
+    * These points lie evenly spaced on the unit circle and form a regular n-gon (the diagram shows that polygon and the idea of factors $(Z - C_k)$ for each root).
+
+14. Chirality / orientation
+
+    * The diagram marks CCW (counterclockwise) as right-hand chiral and CW as left-hand chiral — basically a note about orientation: positive angle increase is CCW by convention.
+
+15. Other labels / small formulas on diagram
+
+    * $Z = |Z|\cdot e^{i\theta}$ (exponential form).
+    * $Z = |Z|(\cos\theta + i\sin\theta)$ (rectangular/polar link).
+    * $Z \times Z^* = iZ \wedge Z^*$ and wedge/cross product remarks are geometric algebra hints—these are more advanced remarks about duals and oriented area (you can ignore them for basic complex arithmetic).
+
+---
+
+ Quick worked example (to tie it together)
+
+Take $Z = 3 + 4i$.
+
+* $x=3,\, y=4$.
+* Modulus $r=\sqrt{3^2+4^2}=\sqrt{9+16}=\sqrt{25}=5$.
+* Angle $\theta=\arctan(4/3)\approx 53.13^\circ$.
+* Polar: $Z = 5(\cos\theta + i\sin\theta) = 5e^{i\theta}$.
+* Conjugate: $Z^*=3-4i$.
+* Reciprocal: $1/Z = Z^*/|Z|^2 = (3-4i)/25$.
+
+Multiply $Z$ by $i$: $iZ = i(3+4i)=3i+4i^2 = -4 + 3i$ — geometrically the point rotated 90° CCW.
+
+---
+
+If you want, I can:
+
+* Draw a clean, labeled copy of this diagram and animate multiplication by $e^{i\phi}$ (rotate + scale), or
+* Walk through one of the “advanced” labels (like the wedge/cross dual comment or the helicity formula) in plain language. Which next?
+
+
+cryptography and encryption algo uses prime
+
+Challenge - Related to the distribution of primes, it is one of the Millennium Prize Problems — solving it wins $1,000,000.
+
+It states that all non-trivial zeros of the Riemann zeta function lie on a certain line in the complex plane — if true, it explains how primes are distributed with almost perfect precision.
+
+primes - pattern + unpredictability (a secret language of universe)
+They appear in a way that seems random but has hidden order.
+Their exact distribution is still partly a mystery (Riemann Hypothesis).
+
+
+Great question — and I love that you’re thinking about this before diving deep into AI/ML.
+The truth is: you don’t need a PhD in math to understand AI/ML well, but you *do* need a solid foundation in the right areas of math — enough to understand what’s happening under the hood, reason about model behavior, and not just treat AI as a black box.
+
+Let me break this down step by step so you can see exactly what math you need, why you need it, and how much is “enough.”
+
+---
+
+ 🧮 1. The Four Math Pillars for AI/ML
+
+> Goal: Build just enough math intuition to reason about models, loss functions, optimization, and probabilities — not become a mathematician.
+
+---
+
+ 1. Linear Algebra (The Language of Data & Models)
+
+* Why:
+
+  * Vectors → represent data points, embeddings, features.
+  * Matrices → represent neural network weights and transformations.
+  * Operations like dot products → core of attention mechanism, similarity measures, etc.
+* Key Topics (Must-Know):
+
+  * Vectors, vector addition, scalar multiplication
+  * Dot product, norms (magnitude)
+  * Matrix multiplication & properties
+  * Transpose, inverse (just conceptually, not heavy computation)
+  * Eigenvalues/eigenvectors (basic understanding)
+* Practical Use:
+
+  * Understand why `W*x + b` is the fundamental neural network operation.
+  * Understand how embeddings are compared with cosine similarity.
+
+🧙 *Fantasy analogy:* Linear algebra is like the geometry of spell-casting — vectors are your magic beams, matrices are transformations that bend and twist them.
+
+---
+
+ 2. Probability & Statistics (The Logic of Uncertainty)
+
+* Why:
+
+  * AI/ML is about making predictions under uncertainty.
+  * You need probability to understand model outputs, loss functions, and evaluation.
+* Key Topics (Must-Know):
+
+  * Probability rules (addition, multiplication)
+  * Random variables, expectation, variance
+  * Conditional probability, Bayes’ theorem
+  * Distributions (Normal, Bernoulli, Binomial)
+  * Mean, median, mode, standard deviation
+* Practical Use:
+
+  * Understand what “confidence score = 0.92” means.
+  * Understand cross-entropy loss and likelihood.
+  * Evaluate models (precision, recall, F1).
+
+🧙 *Fantasy analogy:* Probability is the prophecy system — it tells you how likely each future outcome is.
+
+---
+
+ 3. Calculus (The Engine of Learning)
+
+* Why:
+
+  * Neural networks learn by adjusting parameters using gradients (derivatives).
+  * You don’t need to do symbolic calculus by hand every day — you just need intuition.
+* Key Topics (Must-Know):
+
+  * Derivatives (what they mean conceptually — rate of change)
+  * Partial derivatives (for multivariable functions)
+  * Chain rule (used in backpropagation)
+  * Gradient & gradient descent intuition
+* Practical Use:
+
+  * Understand why “gradient = 0” means model stopped learning.
+  * Understand why we reduce loss step by step.
+
+🧙 *Fantasy analogy:* Calculus is like detecting the slope of a hill to roll the boulder (model weights) down until it reaches the lowest valley (minimum loss).
+
+---
+
+ 4. Discrete Math & Logic (Optional but Helpful)
+
+* Why:
+
+  * Gives you foundations for algorithms, graph theory, combinatorics.
+* Key Topics (Helpful, Not Strictly Required):
+
+  * Sets, functions, relations
+  * Basic combinatorics
+  * Graphs and trees
+* Practical Use:
+
+  * Understand attention as graph connections.
+  * Work with search algorithms and decision trees.
+
+---
+
+ 📊 2. How Much Is Enough?
+
+Here’s a realistic bar for an AI/ML practitioner (not a researcher writing new math papers):
+
+| Area               | Minimum Level Needed (for Strong Intuition)                                                            |
+| ------------------ | ------------------------------------------------------------------------------------------------------ |
+| Linear Algebra | Comfortable with vector/matrix operations and dot product intuition.                                   |
+| Probability    | Can compute basic probabilities, read a probability distribution, and understand expectation/variance. |
+| Calculus       | Understand derivative & gradient conceptually, can follow backpropagation explanation.                 |
+| Stats          | Can compute mean, variance, confidence interval, and interpret model evaluation metrics.               |
+
+That’s it — you don’t need to solve PDEs or compute eigenvalues by hand daily.
+
+---
+
+ 🧠 3. When to Learn Each
+
+You don’t need to learn all math before starting ML — learn just-in-time:
+
+* Week 1-2: Brush up on linear algebra basics (vectors, dot product, matrix multiplication).
+* Week 3-4: Learn probability and statistics fundamentals.
+* Week 5: Learn calculus basics & gradient descent intuition.
+* Parallel: Build small ML projects — apply concepts as you learn them.
+
+---
+
+ 🎯 4. Quick Self-Check
+
+If you can answer these without Googling, you have enough math to start:
+
+1. Compute `dot([1,2],[3,4])` and explain what it means geometrically.
+2. If `P(rain)=0.3`, what’s the chance of *no rain*?
+3. If `f(x)=x²`, what’s its slope at `x=3`?
+4. What’s the mean and variance of \[1,2,3,4,5]?
+
+---
+
+ 🧙 Tiny Practice Prompt
+
+> “You are designing a spell that always finds the lowest valley in a hilly terrain by rolling a magic ball downhill. Describe in your own words how gradient descent would guide the ball.”
+
+---
+
+Would you like me to make a 6-week math-for-ML study plan with bite-sized daily exercises and mini coding tasks (using NumPy for practice)?
+That way, you won’t just read the theory but actually *use* the math as you go.
+
+
+Perfect — project-based learning is the best way to master MCP because it forces you to interact with servers, tools, and resources in real-world ways.
+I’ll give you a progressive project roadmap: beginner → intermediate → advanced → expert.
+Each project will build on the previous one and teach you a new MCP concept.
+
+---
+
+ 🛠 MCP Project Roadmap (Beginner → Advanced)
+
+---
+
+ 🌱 Beginner Projects (Foundations)
+
+> Goal: Get comfortable running MCP servers and making simple requests.
+
+ 1. Hello MCP
+
+* Concepts Covered: MCP client–server connection, `initialize()`, simple `call_tool`.
+* What to Build:
+
+  * Write a minimal MCP server with a single `greet_tool(name)` that returns `Hello, {name}!`.
+  * Write a client that calls it and prints the response.
+* Stretch Goal: Add validation — if name is empty, return an MCP error.
+
+---
+
+ 2. Magic Number Adder
+
+* Concepts Covered: Passing arguments, parsing responses.
+* What to Build:
+
+  * Add a second tool `add_tool(a, b)` that returns their sum.
+  * Write a client that asks user for numbers, calls the tool, and displays result.
+* Stretch Goal: Return both sum and product in the response, so the client handles multiple outputs.
+
+---
+
+ 3. Spellbook Resource Reader
+
+* Concepts Covered: `listResources`, `readResource`.
+* What to Build:
+
+  * Add a resource `"spellbook"` that returns a static list of 10 spell names.
+  * Write a client that lists available resources and reads `"spellbook"`.
+* Stretch Goal: Make `"spellbook"` dynamic — load from a local JSON file.
+
+---
+
+ 🌿 Intermediate Projects (Real Data & Multiple Tools)
+
+> Goal: Work with live data, implement multiple endpoints, start adding logic.
+
+ 4. Weather Oracle
+
+* Concepts Covered: Tool → external API call, error handling.
+* What to Build:
+
+  * `get_weather(city)` tool that fetches weather from a real API (like OpenWeatherMap).
+  * Client asks user for a city and prints weather report.
+* Stretch Goal: Add graceful error handling for unknown cities or API errors.
+
+---
+
+ 5. Quest Generator
+
+* Concepts Covered: Dynamic resource generation.
+* What to Build:
+
+  * A resource `"quests"` that generates random quests each time it’s read.
+  * Each quest has: title, difficulty, reward.
+  * Client calls `listResources()`, finds `"quests"`, and prints all available quests.
+* Stretch Goal: Add a tool `accept_quest(quest_id)` that marks quest as accepted and stores it in a local file.
+
+---
+
+ 6. Tool Chaining
+
+* Concepts Covered: Calling multiple tools in sequence.
+* What to Build:
+
+  * Tools:
+
+    * `generate_character()` → returns random hero.
+    * `assign_quest(character_id)` → assigns a quest to the hero.
+  * Client calls them in sequence to build a small storyline.
+* Stretch Goal: Have the server maintain state so that the same hero can get multiple quests.
+
+---
+
+ 🌳 Advanced Projects (State, Streaming, Deployment)
+
+> Goal: Build stateful, robust, production-like MCP servers.
+
+ 7. Adventurer’s Journal (Stateful Server)
+
+* Concepts Covered: Maintaining persistent state across calls.
+* What to Build:
+
+  * Store accepted quests, completed quests, and hero stats in memory or a local database.
+  * Tools: `view_journal()`, `complete_quest(quest_id)`.
+* Stretch Goal: Save state to disk so progress survives server restart.
+
+---
+
+ 8. Streaming Responses
+
+* Concepts Covered: Partial responses, progress updates.
+* What to Build:
+
+  * Create a tool `forge_weapon()` that simulates forging a weapon in steps:
+
+    * Step 1: Gather materials
+    * Step 2: Heat forge
+    * Step 3: Shape weapon
+    * Step 4: Polish
+  * Stream intermediate steps back to client so it shows a “progress bar.”
+* Stretch Goal: Add cancellation support so client can stop forging mid-way.
+
+---
+
+ 9. Multi-Server MCP Network
+
+* Concepts Covered: Multiple MCP servers, client orchestrating them.
+* What to Build:
+
+  * Server 1: Quest generator
+  * Server 2: NPC generator
+  * Server 3: Inventory manager
+  * Client orchestrates all three to create a full adventure scenario.
+* Stretch Goal: Introduce error retries — if one server fails, client gracefully falls back or re-tries.
+
+---
+
+ 🌲 Expert Projects (Production-Grade & AI-Driven)
+
+> Goal: Build something truly useful, possibly involving GenAI models.
+
+ 10. AI Story Dungeon Master
+
+* Concepts Covered: Combining MCP with AI models (LLMs).
+* What to Build:
+
+  * MCP server with:
+
+    * Resource: Lore database
+    * Tool: `generate_event(hero, quest)` → uses GPT/LLM to generate story event.
+  * Client prompts LLM + calls tools dynamically to run a full text-based RPG session.
+* Stretch Goal: Deploy server on Render/Fly.io and make it publicly accessible.
+
+---
+
+ 11. Personal MCP Assistant
+
+* Concepts Covered: Real-world utility, authentication, multiple integrations.
+* What to Build:
+
+  * Tools:
+
+    * `get_weather(city)`
+    * `send_email(to, message)`
+    * `get_calendar_events()`
+  * Resource: Local knowledge base (Markdown notes).
+  * Client uses LLM to decide which tool to call based on natural language input.
+* Stretch Goal: Add OAuth authentication for Google Calendar and Gmail.
+
+---
+
+ 12. Contribute to MCP Open Source
+
+* Concepts Covered: Internals of MCP, schemas, community standards.
+* What to Build:
+
+  * Implement a new MCP server type (e.g., for Notion, GitHub, or Reddit).
+  * Write documentation and share it with the community.
+* Stretch Goal: Get your MCP server merged into an official repo.
+
+---
+
+ 🧭 Learning Path Recommendation
+
+If you follow these projects in order, you will naturally:
+
+* Learn basic MCP concepts in Projects 1–3
+* Gain confidence connecting to real APIs in Projects 4–6
+* Handle real-world challenges (state, streaming, multiple servers) in Projects 7–9
+* Build production-grade, AI-powered apps in Projects 10–12
+
+---
+
+Would you like me to turn this into a 12-week guided plan (1 project per week, with milestones and hints but no solutions)?
+That way you’ll have a structured journey with increasing difficulty and won’t feel lost.
+
+
+weather API - https://openweathermap.org/api/one-call-3
+
+Ah, design problems — these are a different beast compared to normal “just compute something” problems.
+They test how you think about state, data structures, and APIs, not just algorithm speed.
+Let’s go step by step like we’re designing a magical machine in a fantasy world. ⚙️✨
+
+---
+
+ 🧠 Mindset for Design Problems
+
+Unlike normal problems, design problems:
+
+* Ask you to create a class / system (not just return a single answer).
+* Focus on storing data efficiently and handling multiple operations fast.
+* Test your OOP skills + data structure knowledge + clean code.
+
+---
+
+ 🎯 Step-by-Step Approach
+
+ 1️⃣ Read & Break Down Requirements
+
+You are basically building a “mini-system.”
+
+* List all operations you must support.
+* Note constraints (time complexity goals, input size, memory limits).
+* Write them down as if you're designing an API.
+
+Example (LRU Cache):
+
+* `get(key)` → return value or -1
+* `put(key, value)` → insert/update
+* Must be O(1) time.
+
+---
+
+ 2️⃣ Choose the Right Data Structures
+
+This is the most important step.
+
+Ask:
+
+* Do I need random access → use dict/hashmap
+* Do I need ordering → use list/deque/heap
+* Do I need fast insert + delete → maybe linked list
+* Do I need sorting on the fly → balanced BST / heap
+* Do I need counting → use defaultdict or Counter
+
+---
+
+ 3️⃣ Think About State
+
+Where will data live?
+What do I store so that future queries are fast?
+
+Example:
+
+* In Design Twitter, store:
+
+  * user → tweets
+  * user → following set
+  * use heap to merge latest tweets quickly
+
+---
+
+ 4️⃣ Focus on Operations, Not Implementation First
+
+For each operation:
+
+* Write what must happen
+* Write what data you need
+* Think how to update state efficiently
+
+This avoids messy code because you know your plan.
+
+---
+
+ 5️⃣ Aim for Clean Class Design
+
+Use:
+
+* `__init__` to set up storage
+* Separate methods for each operation
+* Keep complexity low — avoid overengineering
+
+---
+
+ 6️⃣ Consider Edge Cases
+
+Think:
+
+* Empty state (no data yet)
+* Duplicate inserts
+* Deletions on missing items
+* Very large inputs
+
+---
+
+ 7️⃣ Dry Run with Examples
+
+Take the sample input from problem description and run through your mental design:
+
+* Write down what your data structure looks like after each operation
+* Verify if you can answer queries in expected time.
+
+---
+
+ 🛠️ Common Patterns for Design Problems
+
+* HashMap + Doubly Linked List → LRU Cache, LFU Cache
+* HashMap of Queues/Sets → frequency counters, task schedulers
+* Heaps (PriorityQueue) → top K queries, time-based ordering
+* Deque → sliding window problems
+* Trie → autocomplete, prefix search
+* Union-Find (DSU) → connectivity problems
+* OrderedDict (Python) → built-in for cache-like designs
+
+---
+
+ ⚡ Example: LRU Cache (Mini Blueprint)
+
+```python
+class LRUCache:
+    def __init__(self, capacity):
+        self.cache = {}            key -> node
+        self.capacity = capacity
+        self.dll = DoublyLinkedList()   maintain order
+
+    def get(self, key):
+        if key not in self.cache:
+            return -1
+         move node to front
+        node = self.cache[key]
+        self.dll.move_to_front(node)
+        return node.value
+
+    def put(self, key, value):
+        if key in self.cache:
+             update value & move to front
+            self.cache[key].value = value
+            self.dll.move_to_front(self.cache[key])
+        else:
+            if len(self.cache) == self.capacity:
+                 remove LRU
+                lru = self.dll.remove_last()
+                del self.cache[lru.key]
+            node = self.dll.add_to_front(key, value)
+            self.cache[key] = node
+```
+
+Notice how we carefully separate:
+
+* State (cache + dll)
+* Operations (get/put)
+
+---
+
+ 🎯 Checklist Before Coding
+
+✅ Do I know all required operations?
+✅ Do I know the time complexity goal?
+✅ Do I have the right data structures?
+✅ Can I simulate a small example on paper?
+
+If all are yes — code confidently. 💪
+
+---
+
+Would you like me to prepare a design-problem roadmap (starting from easy ones like “Design Parking System” → to medium like “LRU Cache” → to hard like “Twitter” or “LFU Cache”) so you can practice in the right order?
+
+
+Simon's problem in Quantum
+Shor's algorithm
+I truly think that Quantum Mechanics can be a new religion
+Quantum computing in cyber security?
+
+23 sept - 
+
+Changes in cruft template can automatically be reflected on the servers created by it?
+
+N grams uses probability distribution for determining of one word following another. 
+
+LLMs uses Neural networks to comprehend the word and the relationship between them. embeddings is one of the ways to do this. It is a mathematical representation of placing the words into a high dimension where their meanings can be compared and contrasted.
+In 2D or 3D we couldn’t capture all these nuances — so we need a very “wide” space to fit all relationships. If we had 1,536 dimensions:
+
+Each word is a point described by 1,536 numbers.
+
+It’s like describing a person with 1,536 characteristics — so detailed you could almost uniquely identify them among billions.
+
+Compare and Contrast (The Cool Part!) - 
+Because words are represented as points in this big space, we can do math on meanings:
+
+Similarity:
+Two words are similar if their vectors are close together (small distance).
+E.g. "king" is close to "queen" but far from "banana".
+
+Relationships:
+We can even find relationships by vector arithmetic:
+king - man + woman ≈ queen
+This is one of the most famous results of embeddings — you can mathematically reason about meaning.
+
+Embeddings - turns words into a space that can be mathematically explored.
+
+real world use case -
+
+  Recommendation system
+  search engine
+  ChatGPT
+
+Embedding vector can be made by multiplying with 'one-hot vector'.
+
+syntax - 
+   Step 3: Create a one-hot vector for "queen"
+  one_hot_queen = np.zeros(vocab_size)
+  one_hot_queen[1] = 1   queen is index 1
+
+
+
+25 Sept - 
+
+Eg - Tokenization and Embeddings as a jigsaw puzzle-
+
+      If Tokenization is each piece of the puzzle
+      Then Embeddings can help see how they fit together into a full picture
+
+Embeddings can also determined as the cosine angle between two elements -
+  the less the angle, the close they are on the dimensional plane.
+  
+    
+
+
+Notes on project -
+
+    - Only Databricks-related tools need this token-based validation, because access rights depend on Unity Catalog and Databricks APIs.
+    - Other MCP tools (e.g. local utilities, formatting, logging, non-Databricks connectors) do not need to request or validate a Databricks token.
+    
+    - User provides Databricks token → token comes with the MCP request.
+    - MCP tool requires token → every tool schema must expect token.
+    - Tool calls Databricks API with token → token forwarded in Authorization: Bearer <token>. Which API is used depends on the resource:
+    Tables / Views → SQL Statement Execution API (/api/2.0/sql/statements) with a minimal query like SELECT 1 FROM catalog.schema.table LIMIT 1.
+    Schemas / Catalogs → Unity Catalog Permissions API (/api/2.1/unity-catalog/permissions/catalogs/<name> or /schemas/<name>).
+    Files / External locations → Unity Catalog External Locations API (/api/2.1/unity-catalog/external-locations/<name>).
+    Delta tables in external storage → Unity Catalog Tables API (/api/2.1/unity-catalog/tables/<full-name>) or probe with SQL.
+    ML models → MLflow Model Registry API (/api/2.0/mlflow/registered-models/get).
+    Clusters / Warehouses / Jobs → Cluster/SQL Warehouse/Jobs management APIs (/api/2.0/clusters/..., /api/2.1/sql/warehouses/..., /api/2.1/jobs/...).
+    Databricks enforces access →
+    Valid + authorized token → success.
+    Invalid/unauthorized token → 401 or 403.
+    MCP server has no service role → only forwards user token, never holds its own credentials.
+    Validation for a resource → tool attempts the minimal action on the chosen API. Success = access; failure = no access.
+    Scope of “data” → covers all Databricks-managed assets: Tables, Views, Schemas, Catalogs, External files/locations, Delta tables, ML models, Clusters, Warehouses, Jobs.
+    
+
+26 sept - 
+
+2️⃣ Why count += right - left?
+
+This is the key trick.
+The array is sorted: nums[left] <= nums[left+1] <= ... <= nums[right].
+
+If nums[left] + nums[right] > nums[i], then:
+✅ All pairs (left, left+1), (left, left+2), ... (left, right-1)
+will also satisfy nums[x] + nums[right] > nums[i],
+because increasing x only increases the sum (sorted array property).
+
+So instead of checking each pair one by one, we can just count them all at once:
+Number of valid pairs with this right = (right - left)
+
+
+
+AI models -
+
+  - Five steps to create a new model -
+
+    - Stage 1. Prepare data - processing, filtering (hate speech, copyright flag, private data, etc), remove duplicate data.
+      output - Base Data pile
+
+    - Stage 2 - Training - select models (many foundational models- like classifier (classifies each input into a specific category) or chatbots (generates response like a conversation)), then match the model with the data pile, then tokenize the data pile, training
+
+    - Stage 3 - Validate - Running the model and assessing its performance against a set of benchmarks
+
+      create a model card(result)
+
+    - Stage 4 - Tune - fine tune the model to improve it's performance
+
+    - Stage 5 - Deploy over a cloud based platform
+
+
+  - How LLMs work?
+
+    - LLM = Data + Architecture (Transformers for GPT) + training
+    - They work by constantly improving their internal parameters to get as much as much accuracy it can reach to.
+
+    - In business LLMs can be used as -
+        eg- support bot, content creation, software dev, etc
+
+  - What are foundation models and why are there so many of them?
+
+    A foundation model is a very large machine learning model, usually trained on massive, diverse datasets, that can be adapted (fine-tuned) to many different downstream tasks.
+
+    A downstream task is a task that depends on the output of a previous task or process
+
+
+
+29 sept -
+
+How is MCP registry and gateway design related to databricks token?
+whoever is creating a tool should pass the token so that the tool can access the db??
+
+
+dbx - https://dbc-f5fb62cf-ee95.cloud.databricks.com/?autoLogin=true&o=1448882741831131&dbx_source=direct&riid=709b57b2-e290-414e-91d8-453cf416470e
+
+dbx MCP docs - https://docs.databricks.com/aws/en/generative-ai/mcp/
+
+AI for networking
+
+
+30 sept -
+
+NOTE: There's no fast way to compute 
+( n
+  k ) mod10 but there's one for mod2 and mod5.
+Thus, we apply the Chinese Remainder Theorem (Sunzi's theorem) with mod2 and mod5 to find mod10 - explore this
+
+upfront data modelling ??
+
+
+
+
+
+
+
+Remind anjali about - 
+
+11 am EST - video setup
+wed - one to one with divyanshu
+oct 1st week - my leave for diwali week
+
+
+2 Oct -
+
+Dynamic versioning -> Poetry
+
+@classmethod
+@cached_property
+
+One of the Issues in current MCP auth -
+
+Missing Automatic Ping
+❌ No automatic ping loop: No built-in mechanism to periodically send pings
+❌ No connection health monitoring: Cannot detect connection failures automatically
+❌ No keep-alive mechanism: Connections may silently fail without detection
+❌ Protocol compliance gap: Does not meet "SHOULD periodically issue pings" requirement
+
+
+Without automatic ping mechanisms, applications cannot reliably detect:
+Connection failures: Failed connections remain undetected
+Network issues: Network problems go unnoticed
+Connection-based attacks: Attacks targeting connection stability cannot be identified
+Resource leaks: Failed connections are not properly cleaned up
+
+
+In MCP server -
+
+@mcp.tool() - way to expose functions to the client
+@mcp.prompt() - way to register a template prompt so that the client can fill it
+@mcp.resouces() - way to expose structured data to the client like (files, datasets)
+
+
+
+3rd Oct -
+
+Delta in maths mean the change or difference between two numbers
+
+
+memory leaks causes in Python -
+
+Circular reference of variables
+Global variables
+unlimited Data structures (keep growing without emptying)
+No proper handling of resources (not closing files, network connections or database)
+Unexpected object retention
+
+https://probable-coaster-883.notion.site/My-Ultimate-Math-Study-Guide-17dea2713fd780f894a5e670019ae188
+
+CI - code quality so that if code is not per instructions/format or else the commit will fail. Kind of like an internal check to pass the intructed pattern. For code readability.
+
+chatbot integrating through socket into an existing ...?
+
+~
+
+6 Oct -
+
+In spark, machines are known as nodes
+parallel processing -> spark and spark clusters
+cluster -> group of machines
+Cluster manager - creates a driver program with one machine
+Driver program - have the information about the data and tasks and ask manager to create executors(worker machines) then share the data with them
+Then the executors by being in sync with the driver process the data and does the work 
+databricks - a management layer for the spark clusters and it is responsible for all the work done in spark architecture.
+
+mounting
+dbutils.fs()
+dbutils.widgets.text()
+dbutils.widgets.get()
+
+
+~
+
+7th Oct -
+
+washroom sharing issue - Anxious about further Shifting
+If reshifted into another room then there are two problems - far kitchen and where to hang clothes???
+Another option is Flat - but the complications there are - cost, wifi, self cleaning, etc
+
+
+
+
+IT sector fullz(digital imprint of a person on dark web)
+
+
+https://ai-2027.com/
+https://www.anthropic.com/research/agentic-misalignment
+
+Newcomb's paradox
+
+~
+
+
+8 Oct - 
+
+| Input Size `n` | Max Operations Allowed (~1 sec) | Acceptable TC       | Typical Techniques                              |
+| -------------- | ------------------------------- | ------------------- | ----------------------------------------------- |
+| ≤ **10¹**      | 100                             | O(n!), O(2ⁿ)        | Brute force, backtracking, small DFS            |
+| ≤ **10²**      | 10,000                          | O(n³), O(n² log n)  | DP on small grids, Floyd–Warshall, nested loops |
+| ≤ **10³**      | 1,000,000                       | O(n²)               | Basic DP, graph adjacency matrix                |
+| ≤ **10⁴**      | 10 million                      | O(n log n) – O(n√n) | Sorting, binary search, heap, union-find        |
+| ≤ **10⁵**      | 100 million                     | O(n), O(n log n)    | Greedy, prefix sums, 2-pointers, segment tree   |
+| ≤ **10⁶**      | 1 billion                       | O(n)                | Counting, hashing, sieve, prefix computations   |
+| ≤ **10⁹**      | Way too large for loops         | O(log n), O(1)      | Binary exponentiation, math/closed-form         |
+| ≤ **10¹⁸**     | Absolutely massive              | O(1), O(log n)      | Modular arithmetic, matrix exponentiation       |
+
+~
+
+9 Oct -
+
+Okay, so in our last card, we created an MCP tool and a Databricks utility where we pass the token as a parameter to the tool.
+We’re using the MCP client (Inspector) for this. In the Inspector, we select the tool, provide the token in the parameters, then specify the path along with the file name, and add the file content.
+When we click Run, it creates a file on Databricks at the specified path.
+  
+it was related to the issue where when we had tried to access the MCP. server On the end point which was the base end point means local hosts-. Local host:. Flash but this is not the base URL. We were using and on this base URL we have mounted our MCP server and due to this we were not able to access the MCP server because by default it routes to the. Slash MCP So what we have done we have taken we have changed the mounting path to slash MCP and after that we were able to access the MCP server. Using slash MCP endpoint. End point. So this was done and after
+ 
+The issue occurred when we tried to access the MCP server using the base endpoint localhost:8000/ instead of the correct base URL. The MCP server was mounted on a different path, so requests were being routed to / by default, while the server expected them under /mcp.
+
+To resolve this, we updated the mounting path to /mcp. After this change, the MCP server became accessible at localhost:8000/mcp.
+ 
+
+so I created a MCP tool which can be run. on the data bricks role.
+
+This particular tool should be able to create a file in a in a given path and. And that file should reflect in our databriks env. for that particular we would need the authentication token. Which we will generate inside the databriks for personal access. Each and every person would be having their personal access token. So the challenge was that how we passed this token to our tool. In a way that tool should able to access. The databriks environment based upon our token and if we do not have access to particular folder then the tool will be giving us error that we do not have the access. To that particular folder based one over token. In this case what we have done we have created a tool called databriks file creation and in that tool I have located multiple parameters in that. In one of these parameters was the token. The pair token which the user requires to put and then the base URL to connect to the data bricks. Along with that we have the path where in which we need to create the file and next thing was to name the file. You can choose any name I have taken. Test 1 dot TXT file and in the subsequent field you need to put the. Text and all the content of the file. So this is the basic test. Using this tool we should be able to create the file.
+ 
+I have already created a server using latest cruft template then build the docker image once the image is build then ran the container then in the other terminal I am running the mcp inspector
+ 
+I am making connection to our server through transport streamable http an and if you click here we are passing over. So once you've made the connection, then you need to move. You need to go to the tools section in NCP Inspector and then you will be able to see all the tools available in that particular server. Create Workspace file tool. Once you click on that, it will ask for some parameters and the parameters are. And then when we click on run tool it should create a file and see we got a confirmation that this successfully we have created the file to check. At the same we can verify by going into our workspace.
+ 
+So we have created a tool through which we can, create a file in our workspace on databricks.
+ 
+
+tkt 66 - 
+
+desc -
+As a developer creating MCP servers
+I want my bearer tokens to be secure when I pass them to tools so that I can avoid security issues.
+
+AC
+. MCP Clients can pass bearer tokens (including DBX tokens) in response headers to authenticate with tools of the server side.
+. Authentication logic extracted to common function in the MCP Server Template repo (should be agnostic to
+Databricks).
+
+Tests created / documented:
+. Either with the MCP inspector OR
+. with the MCP Client SDK (https://github.com/nike-edaaml/aiml-services-mcp-client)
+
+
+
+
+Sunny's approach - 
+
+created a branch first for this
+Then created the auth_file 
+Then using AI to create the logic and tools
+
+
+Notes -
+
+Callable() - You can check if an object is callable using the built-in callable() function, which returns True if the object is callable and False otherwise.
+
+how to run curl command in powershell
+
+from mcp.client.client import MCPClient...
+Asyncio
+MCP auth, architecture, servers
+MCP inspectors
+
+
+
+
+
+Absolutely! Let’s break down **MCP servers** in a way that’s easy to grasp and directly useful for coding, building clients, and debugging. I’ll organize it into **core concepts, architecture, components, and best practices**.
+
+---
+
+# **1️⃣ What is an MCP Server?**
+
+**MCP** stands for **“Magic Communication Protocol”** (or in some docs “Modular Control Protocol”), but practically, it’s a **Python-based framework for building servers** that expose **tools, resources, and prompts** which clients can call programmatically.
+
+Think of it as a **modular server engine** where:
+
+* **Tools** = Functions you can call (e.g., `add(a,b)`)
+* **Resources** = Dynamic data providers (like URLs or endpoints returning content)
+* **Prompts** = Templates that generate responses, often AI-oriented
+
+It’s similar to a REST API server but **more interactive and structured**.
+
+---
+
+# **2️⃣ Core Components of an MCP Server**
+
+| Component     | Description                                                   | Example                                     |
+| ------------- | ------------------------------------------------------------- | ------------------------------------------- |
+| **Server**    | The main MCP server instance (`FastMCP("name")`)              | `mcp = FastMCP("Demo")`                     |
+| **Tool**      | A callable function with typed inputs/outputs                 | `@mcp.tool() def add(a:int,b:int)->int:`    |
+| **Resource**  | A dynamic endpoint that can return values based on parameters | `@mcp.resource("greeting://{name}")`        |
+| **Prompt**    | Generates text (like a template or instruction)               | `@mcp.prompt() def greet_user(name):`       |
+| **Transport** | How clients communicate with the server                       | `"tcp"`, `"stdio"`; **not HTTP by default** |
+| **Client**    | Python/other SDKs connect to server via transport             | `FastMCPClient("tcp://127.0.0.1:3456")`     |
+
+---
+
+# **3️⃣ How Clients Communicate**
+
+MCP doesn’t use standard HTTP by default (though it can be wrapped with HTTP). Instead:
+
+* **Transport layer** defines how data moves:
+
+  * `"tcp"` → standard TCP socket communication
+  * `"stdio"` → standard input/output (for CLI or embedded usage)
+* **Client SDK** handles serialization/deserialization:
+
+  * Converts Python objects → JSON (or bytes)
+  * Sends to server → server executes tool/resource/prompt → returns result
+* **URLs** for clients look like:
+
+  * `tcp://127.0.0.1:3456`
+  * `stdio://` (for embedded processes)
+
+> ⚠️ Mistake to avoid: passing `"http://localhost:3456"` directly to `mcp.run()` — that’s not a transport type.
+
+---
+
+# **4️⃣ Life Cycle of an MCP Server**
+
+1. **Define server**:
+
+```python
+mcp = FastMCP("Demo")
+```
+
+2. **Register tools/resources/prompts**:
+
+```python
+@mcp.tool()
+def add(a:int,b:int)->int:
+    return a+b
+```
+
+3. **Run server with transport**:
+
+```python
+mcp.run("tcp", host="127.0.0.1", port=3456)
+```
+
+4. **Clients connect** → request a tool/resource/prompt → receive output.
+
+---
+
+# **5️⃣ Tools, Resources, Prompts — Detailed Understanding**
+
+### **Tools**
+
+* Executable functions with strict input/output types
+* Stateless (unless you store state externally)
+* Example:
+
+```python
+@mcp.tool()
+def multiply(x:int, y:int)->int:
+    return x*y
+```
+
+### **Resources**
+
+* Dynamic, URL-like endpoints
+* Can contain path variables `{}` for dynamic lookup
+* Example:
+
+```python
+@mcp.resource("user://{username}")
+def get_user(username:str):
+    return {"name": username, "role": "mage"}
+```
+
+### **Prompts**
+
+* Return text instructions or AI prompts
+* Can have optional parameters
+* Example:
+
+```python
+@mcp.prompt()
+def describe_spell(spell_name:str, tone:str="neutral"):
+    return f"Describe the spell {spell_name} in a {tone} tone."
+```
+
+---
+
+# **6️⃣ Transports in MCP**
+
+| Transport | Usage                      | Pros                           | Cons                                      |
+| --------- | -------------------------- | ------------------------------ | ----------------------------------------- |
+| `tcp`     | Network-based connections  | Can connect multiple clients   | Requires IP/Port, firewall considerations |
+| `stdio`   | Embedded, subprocess-based | Node-free, easy for CLI        | Not suitable for networked clients        |
+| `unix`    | Unix socket (Linux/Mac)    | Fast, local-only               | Not cross-platform                        |
+| `http`    | Optional wrapper           | Standard REST clients can call | Extra layer, not default                  |
+
+---
+
+# **7️⃣ MCP Server Best Practices**
+
+1. **Always define transport explicitly** (`tcp` or `stdio`)
+2. **Tools/resources/prompts should be idempotent if possible** — clients may retry calls
+3. **Keep tools stateless** unless you have a clear state management plan
+4. **Document resource URLs and prompt parameters** clearly — they are your “API docs”
+5. **Use typed inputs/outputs** — simplifies client integration
+6. **Firewall / port configuration** — needed for TCP transport
+7. **Testing** — test tools/resources with a Python client first before integrating Node Inspector
+
+---
+
+# **8️⃣ MCP Server vs HTTP Server**
+
+| Feature       | MCP Server                             | HTTP Server                   |
+| ------------- | -------------------------------------- | ----------------------------- |
+| Transport     | TCP / stdio                            | HTTP                          |
+| Input Types   | Typed Python objects                   | JSON (or other serialization) |
+| Resource URLs | `resource://{param}`                   | `/endpoint`                   |
+| Tools         | First-class functions                  | Handlers / routes             |
+| Prompts       | Integrated instruction/template system | Usually custom endpoints      |
+
+---
+
+# **9️⃣ MCP Client**
+
+* Connects using the **transport URL** (`tcp://127.0.0.1:3456`)
+
+* Can call:
+
+  * `list_tools()`
+  * `call_tool(name, params)`
+  * `list_resources()`
+  * `call_resource(url)`
+  * `list_prompts()`
+  * `call_prompt(name, params)`
+
+* Can be Python SDK, Node Inspector (web-based), or other custom clients
+
+---
+
+# **🔑 Summary**
+
+1. MCP Server = modular Python server exposing **tools, resources, prompts**
+2. Clients connect via **transports**, not HTTP by default
+3. Tools = functions; Resources = dynamic endpoints; Prompts = text templates
+4. FastMCP provides `FastMCP` server and `FastMCPClient` SDK for Python
+5. Correct transport setup is **critical** — otherwise clients fail (`Unknown transport`)
+6. Node Inspector = optional GUI for exploration; **Python clients can replace it entirely**
+
+---
+
+If you want, I can **draw a visual diagram of MCP server architecture** showing how **server, tools, resources, prompts, transport, and clients interact** — it makes it much easier to reason about the system.
+
+Do you want me to do that?
+
+
+
+
+Got it 👍 You want a project idea for MCP (Model Context Protocol) that you can actually build and learn from, right? Let’s design one.
+
+Here’s one project suggestion (beginner-to-intermediate friendly):
+
+---
+
+ 🧙 Fantasy Spellbook MCP Project
+
+Project Title: *“The Spellbook of Context”*
+
+ 🎯 Goal
+
+Build an MCP server that acts like a magical spellbook.
+
+* Each "tool" in the MCP server is like a spell.
+* The client (wizard apprentice—you 😁) can call these tools to cast spells, retrieve knowledge, or manage magical data.
+
+---
+
+ 🔮 Features
+
+1. Spell Creation Tool
+
+   * Input: spell name, effect, mana cost
+   * Output: confirmation of spell creation
+   * Saves spells into a local JSON or database file
+
+2. Spell Lookup Tool
+
+   * Input: spell name
+   * Output: details of the spell (effect + mana cost)
+
+3. Random Spell Generator
+
+   * No input
+   * Output: generates a random spell with a creative name and effect (like “Frostfire Whispers” → freezes enemy + reveals secrets).
+
+4. Mana Tracker Tool
+
+   * Input: action (increase / decrease) + amount
+   * Output: updated mana points
+
+5. Battle Simulation Tool (bonus, advanced)
+
+   * Input: enemy type
+   * Output: Simulates a small battle sequence using your stored spells.
+
+---
+
+ 🏗️ How this maps to MCP
+
+* Each tool = a JSON schema + function inside the MCP server.
+* You’ll expose them through MCP so your MCP client can call them.
+* Data persistence (spellbook.json) makes it feel real.
+
+---
+
+ 🌱 Beginner Scope
+
+* Just implement Spell Creation + Spell Lookup.
+* Store spells in a JSON file.
+
+ ⚔️ Intermediate Scope
+
+* Add Random Spell Generator + Mana Tracker.
+
+ 🐉 Advanced Scope
+
+* Add Battle Simulation with a bit of randomness and spell chaining.
+
+---
+
+👉 This project is bookish, magical (fits your style ✨), and at the same time teaches you:
+
+* How to define tools in MCP
+* How to handle inputs/outputs with schemas
+* How to manage stateful data (like a spellbook)
+
+---
+
+Would you like me to sketch out the server code for the *Beginner Scope* (Spell Creation + Spell Lookup), or would you prefer me to only give you the problem statement like a challenge?
+
+
+
+
+
+
+Word2vec in depth -
+
+Nice — let’s dive deep. I’ll explain what Word2Vec is, why it works, how it’s built and trained (with math), practical tricks, and strengths/limitations — plus small code and a pseudocode training loop. I’ll keep a few fantasy metaphors sprinkled in so the ideas stick. ⚔️📜
+
+ What is Word2Vec (short)
+
+Word2Vec is a family of *shallow neural-network* models that learn dense vector representations (embeddings) of words so that words used in similar contexts get similar vectors.
+Key intuition (distributional hypothesis):
+
+> *“Words appearing in similar contexts tend to have similar meanings.”*
+
+ Why it matters
+
+* Turns words (discrete IDs) into continuous vectors you can compare with cosine similarity.
+* Enables clustering, nearest-neighbor search, analogies (e.g., `king - man + woman ≈ queen`), and is a cheap, fast baseline for many NLP tasks.
+
+ Two main architectures
+
+1. Skip-gram (predict context from center word) — often better for infrequent words.
+2. CBOW (Continuous Bag of Words — predict center word from context) — faster, smoother for high-frequency words.
+
+Both are simple 2-layer networks: one-hot input → embedding layer (hidden) → output scores → softmax / approximate objective.
+
+ Model structure (matrix view — the meat)
+
+Vocabulary size = $V$. Embedding dimension = $d$.
+
+Parameters:
+
+* Input embedding matrix $W \in \mathbb{R}^{V\times d}$ (rows = input vectors)
+* Output embedding matrix $W' \in \mathbb{R}^{V\times d}$ (rows = output/context vectors)
+
+If input is one-hot $x$ selecting word $w_i$, hidden representation:
+
+$$
+h = W^T x
+$$
+
+Because $x$ is one-hot, $h$ is just the row $W_{i,:}$ (the embedding of the center word).
+
+For skip-gram, score for candidate context word $w_o$:
+
+$$
+\text{score}(w_o) = {v_{w_o}'}^\top v_{w_i}
+$$
+
+where $v_{w_i}$ is row $W_{i,:}$, $v_{w_o}'$ is row of $W'$.
+
+Softmax probability:
+
+$$
+p(w_o \mid w_i) = \frac{\exp(v_{w_o}'^\top v_{w_i})}{\sum_{w=1}^V \exp(v_w'^\top v_{w_i})}
+$$
+
+Training maximizes (for skip-gram) the avg log-probability:
+
+$$
+\frac{1}{T} \sum_{t=1}^T \sum_{-c\le j \le c, j\ne0} \log p(w_{t+j}\mid w_t)
+$$
+
+where $c$ is context window size.
+
+ The computational problem & two practical solutions
+
+Computing full softmax is $O(V)$ per update — too slow for large $V$. Two efficient approximations are commonly used:
+
+ 1) Negative Sampling (popular)
+
+Instead of computing full softmax, for each positive pair $(w_i, w_o)$ maximize:
+
+$$
+\log \sigma(v_{w_o}'^\top v_{w_i}) + \sum_{k=1}^K \mathbb{E}_{w_k \sim P_n} \left[\log \sigma(-v_{w_k}'^\top v_{w_i})\right]
+$$
+
+* $\sigma$ = sigmoid.
+* $w_k$ are negative samples drawn from noise distribution $P_n$ (empirically: unigram distribution raised to the $3/4$ power: $P_n(w)\propto f(w)^{3/4}$).
+* $K$ typically 5–20 (larger corpora → larger K).
+
+Negative sampling turns the problem into many cheap binary logistic regressions.
+
+ 2) Hierarchical softmax
+
+Use a binary tree (Huffman tree); word probability decomposed along tree path. Complexity $O(\log V)$. Good for very rare words.
+
+ Additional practical tricks in original Word2Vec
+
+* Subsampling frequent words: randomly drop very frequent words (e.g., “the”, “a”) to speed training and improve rare-word vectors. Original formula in Mikolov et al.:
+
+  $$
+  P(\text{discard } w) = 1 - \sqrt{\frac{t}{f(w)}}
+  $$
+
+  where $f(w)$ is frequency (fraction of tokens) and $t$ is a small threshold (typical $t\approx 10^{-5}$).
+
+* Negative sampling distribution: sample negatives from unigram$\,^{3/4}$ distribution (flattens distribution somewhat).
+
+* Window size: controls how much context to use (small windows → syntactic relationships; large windows → semantic/topical relationships).
+
+* Subword / phrase handling: Word2Vec was extended with phrase detection (merge frequent bigrams) and later fastText added character n-grams to handle morphology/out-of-vocab words.
+
+ Why analogies (like king–man+woman≈queen) emerge
+
+Roughly: some latent dimensions end up aligning with semantic axes (gender, tense, royalty). The embedding learning objective forces words with similar contexts to have similar projections onto these axes, so linear combinations can approximate relational changes.
+
+ Link to matrix factorization (theory)
+
+Researchers showed (Levy & Goldberg, 2014) that skip-gram with negative sampling implicitly factorizes a shifted PMI (pointwise mutual information) matrix. So Word2Vec approximates statistical co-occurrence structure — it’s not magic, it's compressed co-occurrence statistics.
+
+ Training algorithm (pseudocode — skip-gram with negative sampling)
+
+```
+initialize W, W' (small random values)
+for epoch in range(num_epochs):
+  for each position t in corpus:
+    center = corpus[t]
+    context_positions = positions in window around t
+    for pos in context_positions:
+      context_word = corpus[pos]
+       positive pair (center, context_word)
+      update parameters to maximize log σ(v'_context · v_center)
+       negative samples:
+      for k in 1..K:
+        negative = sample_negative()
+        update parameters to maximize log σ(-v'_negative · v_center)
+```
+
+Gradient updates are cheap because you update only the vectors involved (center, context, and K negatives).
+
+ Hyperparameter rules of thumb
+
+* `vector size (d)`: 50–300 common; 100–300 for many tasks; 300–1000 for very large corpora.
+* `window size`: 2–5 for syntax; 5–10 for semantics/topics.
+* `negative samples K`: 5–20 (bigger corpus → larger K).
+* `min_count`: discard words appearing less than X times to reduce V.
+* `subsampling t`: ~1e-5.
+* `epochs`: depends on data size; 1–5 commonly.
+* optimizer: simple SGD or asynchronous SGD in original C implementation with decreasing learning rate (start ~0.025).
+
+ Quick practical example (gensim)
+
+```python
+from gensim.models import Word2Vec
+
+sentences = [["the","wizard","fought","the","dragon"], ...]   tokenized corpus
+model = Word2Vec(sentences,
+                 vector_size=100,
+                 window=5,
+                 min_count=2,
+                 sg=1,             sg=1 => skip-gram, sg=0 => CBOW
+                 negative=10,     negative samples
+                 epochs=5)
+ use embedding:
+vec = model.wv['dragon']             numpy array, shape (100,)
+model.wv.most_similar('dragon', topn=10)
+```
+
+ Strengths and limitations
+
+Strengths
+
+* Fast to train on large corpora (especially negative sampling).
+* Produces compact, useful static word embeddings.
+* Simple, interpretable hyperparameters.
+* Works well as features / initialization for downstream tasks.
+
+Limitations
+
+* Context-independent: single vector per word → no sense disambiguation (bank(finance) vs bank(river) share one vector).
+* Bias: embeddings encode societal biases present in training data.
+* Rare words: poor vectors unless lots of data or subword models (fastText).
+* Not state-of-the-art for tasks where contextual embeddings (BERT / Transformers) outperform, but still valuable and cheap.
+
+ Signs of good vs bad embeddings
+
+* Good: nearest neighbors are semantically related; analogies mostly hold; performance improves on downstream tasks.
+* Bad: nearest neighbors are garbage; vectors are near-zero/unstable; dominated by high-frequency artifacts.
+
+ When to use Word2Vec
+
+* Baselines and feature extraction for classical ML tasks.
+* When you need cheap, fast embeddings for large corpora.
+* When you want interpretable static vectors.
+* Not ideal when context-dependent meaning matters heavily — prefer contextual models.
+
+ Tiny diagnostic / experiment you can run
+
+1. Train Word2Vec on a small corpus (gensim).
+2. Inspect `model.wv.most_similar('king')`.
+3. Try analogy: `model.wv.most_similar(positive=['king','woman'], negative=['man'])`.
+
+ Short fantasy recap
+
+Think of the corpus as a kingdom of scrolls. Word2Vec is a scribe who watches which runes (words) appear beside which other runes. After seeing enough scrolls, the scribe places a token orb (vector) for each rune in a huge hall so that orbs that co-occur often are placed near each other. The scribe uses clever shortcuts (negative sampling = checking a few random fake runes) to work fast without inspecting every rune in the kingdom every time.
+
+---
+
+If you want, I can:
+
+* Show a very small NumPy implementation of one training step (negative sampling) so you see the gradient updates numerically.
+* Or run a toy gensim example on a short corpus and show nearest neighbors / analogy outputs.
+
+Which would you prefer next? (small code step-by-step, or a practical gensim run?)
