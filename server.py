@@ -11,11 +11,10 @@ from mcp.server.fastmcp import FastMCP
 # mcp = FastMCP("Demo")
 # mcp = FastMCP("My MCP", host="127.0.0.1", port=3456)
 mcp = FastMCP(
-    "My MCP"
-    # ,
-    # transport="tcp",
-    # host="127.0.0.1",
-    # port=3456
+    "My MCP",
+    host="127.0.0.1",
+    port=8000,
+    # transport="tcp",  # if you need a different transport
 )
 
 # Add an addition tool
@@ -46,7 +45,22 @@ def greet_user(name: str, style: str = "friendly") -> str:
 
 
 if __name__ == "__main__":
-    # mcp.run(transport="sse")
-    # mcp.run()
-    mcp.run("sse", "127.0.0.1")
+    # Ensure the server advertises a canonical SSE endpoint (path-only or absolute)
+    # Adjust this value to match where clients should connect.
+    public_base = "http://127.0.0.1:8000/sse"
+
+    # Try to set common FastMCP/public attributes if available (safe no-op otherwise)
+    for opt in ("public_url", "public_base", "endpoint", "sse_endpoint", "public_endpoint"):
+        if hasattr(mcp, opt):
+            try:
+                setattr(mcp, opt, public_base)
+            except Exception:
+                pass
+
+    # If the implementation exposes a transport_config dict, set public_base there
+    if getattr(mcp, "transport_config", None) is not None and isinstance(mcp.transport_config, dict):
+        mcp.transport_config["public_base"] = public_base
+
+    # Run the server (host/port were set on construction above)
+    mcp.run("sse")
 
