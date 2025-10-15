@@ -6,6 +6,7 @@ cd to the `examples/snippets/clients` directory and run:
 """
 
 from mcp.server.fastmcp import FastMCP
+import logging
 
 # Create an MCP server
 # mcp = FastMCP("Demo")
@@ -61,6 +62,16 @@ if __name__ == "__main__":
     if getattr(mcp, "transport_config", None) is not None and isinstance(mcp.transport_config, dict):
         mcp.transport_config["public_base"] = public_base
 
+    # Ensure logging is visible immediately
+    logging.basicConfig(level=logging.DEBUG)
+    print(f"Starting FastMCP server on {getattr(mcp, 'host', '127.0.0.1')}:{getattr(mcp, 'port', 8000)} serving {public_base}", flush=True)
+
     # Run the server (host/port were set on construction above)
-    mcp.run("sse")
+    try:
+        mcp.run("sse")
+    except Exception as exc:
+        import traceback
+        traceback.print_exc()
+        print("Server failed to start:", exc, flush=True)
+        raise
 

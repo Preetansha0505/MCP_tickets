@@ -100,40 +100,36 @@ def instrument_client(client, logger=logger):
     return client
 
 
-async def main():
-    base = "http://127.0.0.1:8000/sse"
+async def main(url: str | None = None):
+    """
+    Run the inspector. If `url` is provided use it as the client base URL.
+    This lets tests/run_with_stub.py pass the server endpoint directly.
+    """
+    base = url or "http://127.0.0.1:8000/sse"
+    logger.debug("Inspector will connect to %s", base)
+
     # open client normally, then instrument the instance so calls are logged
-    async with Client(base) as client:
-        instrument_client(client, logger)
+    try:
+        async with Client(base) as client:
+            instrument_client(client, logger)
 
-        # client.list_tools() will trigger the handshake; the client library may read an "endpoint" event
-        # if your Client exposes the raw endpoint, normalize it; otherwise intercept the endpoint string
-        # (example assumes client returns the endpoint string in client._last_endpoint or similar)
-        # adapt to your Client API if needed.
-        try:
-            tools = await client.list_tools()
-            print("Tools:", tools)
-        except Exception as exc:
-            # Inspect the endpoint reported by the library/server if available
-            raw_endpoint = getattr(client, "_last_endpoint", None)
-            if raw_endpoint:
-                fixed = normalize_endpoint(base, raw_endpoint)
-                print("Normalized endpoint:", fixed)
-                # Optionally retry using fixed endpoint (depends on Client API)
-                try:
-                    async with Client(fixed) as retry_client:
-                        instrument_client(retry_client, logger)
-                        tools = await retry_client.list_tools()
-                        print("Tools (after retry):", tools)
-                        return
-                except Exception as exc2:
-                    print("Retry with normalized endpoint failed:", exc2)
-            raise
-
-    # async with Client("http://127.0.0.1:8000/sse") as client:
-    #     print(await client.list_tools())
-    #     result = await client.call_tool("add", {"a": 2, "b": 3})
-    #     print("Result:", result)
+            logger.debug("Calling list_tools() to trigger handshake/requests")
+            try:
+                tools = await client.list_tools()
+                logger.debug("list_tools returned: %s", _safe_json(tools))
+                print("Tools:", tools)
+            except Exception as exc:
+                logger.exception("Error calling list_tools(): %s", exc)
+                # expose last endpoint if available
+                raw_endpoint = getattr(client, "_last_endpoint", None)
+                if raw_endpoint:
+                    from urllib.parse import urljoin
+                    fixed = normalize_endpoint(base, raw_endpoint)
+                    logger.debug("Normalized endpoint suggestion: %s", fixed)
+                raise
+    except Exception:
+        logger.exception("Failed to run inspector (connection/handshake failed)")
+        raise
 
 
 if __name__ == "__main__":
